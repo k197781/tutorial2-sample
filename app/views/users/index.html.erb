@@ -1,0 +1,12 @@
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<%= will_paginate %>
+<!--  自動で userを ページネーションする -->
+<!-- @user = User.paginate(page: params[:page]) -->
+<ul class="users">
+  	<%= render @users %>
+  	<!--  	@users forに勝手に認識   -->
+</ul>
+
+<%= will_paginate %>

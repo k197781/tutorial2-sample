@@ -36,6 +36,11 @@ module SessionsHelper
 	    end
 	end
 
+	# 今のユーザかどうか
+	def current_user?(user)
+	    user == current_user
+	end
+
 	def logged_in?
 		!current_user.nil?
 	end
@@ -53,6 +58,17 @@ module SessionsHelper
 		session.delete(:user_id)
 		# セッションIDの削除
   		@current_user = nil
+	end
+
+	# 記憶したURL (もしくはデフォルト値) にリダイレクト
+	def redirect_back_or(default)
+	    redirect_to(session[:forwarding_url] || default)
+	    session.delete(:forwarding_url)
+	end
+
+	# 行きたいURLを覚えておく
+	def store_location
+	    session[:forwarding_url] = request.original_url if request.get?
 	end
 	
 end
